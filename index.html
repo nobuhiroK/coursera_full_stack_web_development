@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1218301158716013",
+    enable_page_level_ads: true
+  });
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head
+         content must come *after* these tags -->
+    <script type = "text/javascript" 
+         src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+        
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./js/app.js"></script>
+
+
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/mystyles.css" rel="stylesheet">
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap-social.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <meta name="keywords" content="mushroom,edible,poisonous,classification, AI, artifical intelligence, machine learning, prediction" />
+    <meta name="description" content="check mushroom if it is edible or poisonous" />
+    <title>Mushroom Edible Classification</title>
+</head>
+    
+
+<body>
+
+<header class="jumbotron">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img src="img/mushroom_64.png" height=30 width=41></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" style="overflow:hidden">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="active"><a href="#"><span class="glyphicon glyphicon-home"
+                                                         aria-hidden="true"></span> Home</a></li>
+                </ul>
+            
+            </div>
+        </div>
+    </nav>
+
+    <div id="reserveModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Mushroom Checker</h4>
+                </div>
+                <div class="modal-body">
+                	<form class="form-horizontal" id=form1>
+                        <div class="form-group">
+                            <label for="cap_shape" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">cap_shape</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="cap_shape" name="cap_shape"
+                                        data-default-value="x">
+                                <option value="b">bell</option>
+                                <option value="c">conical</option>
+                                <option value="f">flat</option>
+                                <option value="k">knobbed</option>
+                                <option value="s">sunken</option>
+                                <option value="x" selected="selected">convex</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cap_surface" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">cap_surface</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="cap_surface" name="cap_surface" data-default-value="y">
+                                <option value="f">fibrous</option>
+                                <option value="g">grooves</option>
+                                <option value="s">smooth</option>
+                                <option value="y" selected="selected">scaly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cap_color" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">cap_color</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="cap_color" name="cap_color"
+                                        data-default-value="n">
+                                <option value="n" selected="selected">brown</option>
+                                <option value="g">gray</option>
+                                <option value="e">red</option>
+                                <option value="y" >yellow</option>
+                                <option value="w" >white</option>
+                                <option value="b" >buff</option>
+                                <option value="p" >pink</option> 
+                                <option value="r" >green</option>
+                                <option value="u" >purple</option>
+                                <option value="c" >cinnamon</option>
+                                </select>
+                            </div>
+                        </div>                            
+                        <div class="form-group">
+                            <label for="bruises" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">bruises</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="bruises" name="bruises"
+                                        data-default-value="f">
+                                <option value="f" selected="selected">no</option>
+                                <option value="t">bruises</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="odor" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">odor</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="odor" name="odor"
+                                        data-default-value="n">
+                                <option value="n" selected="selected">none</option>
+                                <option value="f">foul</option>
+                                <option value="s">spicy</option>
+                                <option value="y" >fishy</option>
+                                <option value="a" >almond</option>
+                                <option value="l" >anise</option>
+                                <option value="c" >creosote</option> 
+                                <option value="m" >musty</option>
+                                <option value="p" >pungent</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gill_attachment" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">gill_attachment</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="gill_attachment" name="gill_attachment" data-default-value="f">
+                                <option value="a" >attached</option>
+                                <option value="f" selected="selected">free</option>
+                                <!--<option value="d" >descending</option> 
+                                <option value="n" >notched</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gill_spacing" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">gill_spacing</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="gill_spacing" name="gill_spacing" data-default-value="c">
+                                <option value="c" selected="selected">close</option>
+                                <option value="w">crowded</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gil_size" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">gill_size</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="gill_size" name="gill_size"
+                                        data-default-value="b">
+                                <option value="b" selected="selected">broad</option>
+                                <option value="n">narrow</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gill_color" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">gill_color</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="gill_color" name="gill_color"
+                                        data-default-value="b">
+                                <option value="b" selected="selected">buff</option>
+                                <option value="e">red</option>
+                                <option value="g">gray</option>
+                                <option value="h">chocolate</option>
+                                <option value="k">black</option>
+                                <option value="n">brown</option>
+                                <option value="o">orange</option>
+                                <option value="p">pink</option>
+                                <option value="r">green</option>
+                                <option value="u">purple</option>
+                                <option value="w">white</option>
+                                <option value="y">yellow</option>    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stalk_shape" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">stalk_shape</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="stalk_shape" name="stalk_shape" data-default-value="t">
+                                <option value="e" >enlarging</option>
+                                <option value="t" selected="selected" >tapering</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stalk_root" class="control-label col-xs-13 col-sm-4 col-md-3 col-lg-3">stalk_root</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="stalk_root" name="stalk_root"
+                                        data-default-value="b">
+                                <option value="?">missing</option>
+                                <option value="b" selected="selected">bulbous</option>
+                                <option value="c">club</option>
+                                <option value="e" >equal</option>
+                                <option value="r" >rooted</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stalk_surface_above_ring" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">stalk_surface_above_ring</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="stalk_surface_above_ring" name="stalk_surface_above_ring" data-default-value="s">
+                                <option value="f">fibrous</option>
+                                <option value="k" >silky</option>
+                                <option value="s" selected="selected">smooth</option>
+                                <option value="y" >scaly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stalk_surface_below_ring" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">stalk_surface_below_ring</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="stalk_surface_below_ring" name="stalk_surface_below_ring" data-default-value="f">
+                                <option value="f" selected="selected">fibrous</option>
+                                <option value="k" >silky</option>
+                                <option value="s" >smooth</option>
+                                <option value="y" >scaly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stalk_color_above_ring" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">stalk_color_above_ring</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="stalk_color_above_ring" name="stalk_color_above_ring" data-default-value="b">
+                                <option value="b" selected="selected">buff</option>
+                                <option value="c">cinnamon</option>
+                                <option value="e">red</option>
+                                <option value="g" >gray</option>
+                                <option value="n" >brown</option>
+                                <option value="o" >orange</option>
+                                <option value="p" >pink</option>
+                                <option value="w" >white</option>
+                                <option value="y" >yellow</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stalk_color_below_ring" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">stalk_color_below_ring</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="stalk_color_below_ring" name="stalk_color_below_ring" data-default-value="w">
+                                <option value="b" >buff</option>
+                                <option value="c">cinnamon</option>
+                                <option value="e">red</option>
+                                <option value="g" >gray</option>
+                                <option value="n" >brown</option>
+                                <option value="o" >orange</option>
+                                <option value="p" >pink</option>
+                                <option value="w" selected="selected">white</option>
+                                <option value="y" >yellow</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="veil_type" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">veil_type</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="veil_type" name="veil_type"
+                                        data-default-value="p">
+                                <option value="p" selected="selected">partial</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="veil_color" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">veil_color</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="veil_color" name="veil_color"
+                                        data-default-value="n">
+                                <option value="n" selected="selected">brown</option>
+                                <option value="o">orange</option>
+                                <option value="w">white</option>
+                                <option value="y">yellow</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ring_number" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">ring_number</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="ring_number" name="ring_number" data-default-value="o">
+                                <option value="n" >none</option>
+                                <option value="o" selected="selected" >one</option>
+                                <option value="t" >two</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ring_type" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">ring_type</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="ring_type" name="ring_type"
+                                        data-default-value="p">
+                                <option value="e" >evanescent</option>
+                                <option value="f">flaring</option>
+                                <option value="l">large</option>
+                                <option value="n" >none</option>
+                                <option value="p" selected="selected">pendant</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="spore_print_color" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">spore_print_color</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="spore_print_color" name="spore_print_color" data-default-value="w">
+                                <option value="b" >buff</option>
+                                <option value="h">chocolate</option>
+                                <option value="k">black</option>
+                                <option value="n" >brown</option>
+                                <option value="o" >orange</option>
+                                <option value="r" >green</option>
+                                <option value="u">purple</option>
+                                <option value="w" selected="selected">white</option>
+                                <option value="y" >yellow</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="population" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">population</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="population" name="population"
+                                        data-default-value="v">
+                                <option value="a" >abundant</option>
+                                <option value="c">clustered</option>
+                                <option value="n">numerous</option>
+                                <option value="s" >scattered</option>
+                                <option value="v" selected="selected">several</option>
+                                <option value="y" >solitary</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="habitat" class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3">habitat</label>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select class="form-control" id="habitat" name="habitat"
+                                        data-default-value="d">
+                                <option value="d" selected="selected">woods</option>
+                                <option value="g">grasses</option>
+                                <option value="l">leaves</option>
+                                <option value="m" >meadows</option>
+                                <option value="p" >paths</option>
+                                <option value="u" >urban</option>
+                                <option value="w" >waste</option>    
+                                </select>
+                            </div>
+                        </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-2 col-xs-10">
+                    <button type="submit" id="btn" class="btn btn-primary">Submit</button>
+                </div>
+                </div>
+                </form>
+                </div>  
+            </div>
+        </div>
+    </div>
+    <!-- Main component for a primary marketing message or call to action -->
+
+    <div class="container">
+        <div class="row row-header">
+            <div class="col-xs-12 col-md-8">
+                <h1>Mushroom Edible Clssification</h1>
+                <p style="padding:40px;"></p>
+                <p>Welcome mushroom lovers! Have you found a new species of mushroom? Maybe, you are wondering if the mushroom under investigation is edible or poisonous.  We have built an AI model to classify edible mushrooms from various attributes of the mushroom. Check the button in right to start the classification model. Remember this is only a model, and the prediction is only an approximation. Enjoy your mushroom!</p>
+            </div>
+            <div class="col-xs-12 col-md-2">
+                <p style="padding:20px;"></p>
+                <img src="img/mushroom_256.png" class="img-responsive  center-block">
+            </div>
+            <div class="col-xs-12 col-md-3" style="margin-top: 100px;">
+                <!--a type="button" class="btn btn-warning btn-block"
+                   data-toggle="tooltip" title="Or Call us at +852 12345678"
+                   data-placement="bottom" href="#reserveform">Reserve table</a -->
+                <a id="reserveButton" role="button" type="button"
+                   class="btn btn-warning btn-block">Check your mushroom</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class=" container">
+    <div class="row row-content">
+        <div class="col-xs-12 col-md-6 col-sm-6">
+            <div name="output" id="output">
+                
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6 col-sm-6col-sm-3">
+            <div id="prob">
+            </div>
+            <span id="Text">
+            </span>
+        </div>
+    </div>
+    <div class="row row-content">
+        <div class="col-xs-12 col-sm-3 col-sm-push-9">
+            <p style="padding:20px;"></p>
+            <h3 align=center>
+                <a target="_blank" href="https://www.amazon.com/gp/product/189278436X/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=189278436X&linkCode=as2&tag=mushroomedibl-20&linkId=737b7ec22d15a76e906e98547c2ee556">Foraging the Mountain West: Gourmet Edible Plants, Mushrooms, and Meat</a><img src="//ir-na.amazon-adsystem.com/e/ir?t=mushroomedibl-20&l=am2&o=1&a=189278436X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></h3>
+        </div>
+        <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+              <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" data-fw-param="28899/"></script> <!-- end feedwind code --> 
+            
+        </div>
+    </div>
+
+    <div class="row row-content">
+        <div class="col-xs-12 col-sm-3">
+            <p style="padding:20px;"></p>
+            <h3 align=center><a target="_blank" href="https://www.amazon.com/gp/product/0292754523/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0292754523&linkCode=as2&tag=mushroomedibl-20&linkId=7063cf69459ecf76748caaabca245c31">Ascomycete Fungi of North America: A Mushroom Reference Guide (Corrie Herring Hooks Series)</a><img src="//ir-na.amazon-adsystem.com/e/ir?t=mushroomedibl-20&l=am2&o=1&a=0292754523" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" ></h3>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+             <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" data-fw-param="28903/"></script> <!-- end feedwind code --> 
+              
+            
+        </div>
+    </div>
+
+    <div class="row row-content">
+        <div class="col-xs-12 col-sm-3 col-sm-push-9">
+            <p style="padding:20px;"></p>
+            <h3 align=center><a target="_blank" href="https://www.amazon.com/gp/product/0674445554/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0674445554&linkCode=as2&tag=mushroomedibl-20&linkId=f51ef965447f0c66d2460009b7842faf">In the Company of Mushrooms: A Biologist's Tale</a><img src="//ir-na.amazon-adsystem.com/e/ir?t=mushroomedibl-20&l=am2&o=1&a=0674445554" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></h3>
+        </div>
+        <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+             <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" data-fw-param="28904/"></script> <!-- end feedwind code --> 
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="row row-footer">
+            <div class="col-xs-5 col-xs-offset-1 col-sm-2 col-sm-offset-1">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Home</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-6 col-sm-5">
+                <h5>Our Address</h5>
+                <address>
+                    Tokyo<br>
+                    JAPAN<br>
+                    <i class="fa fa-envelope"></i>:
+                    <a href="mailto:nobu.kikuchi.j@gmail.com">nobu.kikuchi.j@gmail.com</a>
+                </address>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="nav navbar-nav" style="padding: 40px 10px;">
+                    <a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i
+                            class="fa fa-google-plus"></i></a>
+                    <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/"><i
+                            class="fa fa-facebook"></i></a>
+                    <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/"><i
+                            class="fa fa-linkedin"></i></a>
+                    <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+                    <a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
+                    <a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o"></i></a>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <p style="padding:10px;"></p>
+                <p align=center>© Copyright 2017 Nobuhiro Kikuchi</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#reserveButton").click(function () {
+            alert("Disclaimer\n==========\nLast updated: Sept 1, 2017\n\nThe information contained on mushroomedible.com website (the 'Service') is for general information purposes only.\n\nKikuchi assumes no responsibility for errors or omissions in the contents on the Service.\n\nIn no event shall Kikuchi be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence or other tort, arising out of or in connection with the use of the Service or the contents of the Service. Kikuchi reservesthe right to make additions, deletions, or modification to the contents on the Service at any time without prior notice.\n\nKikuchi does not warrant that the website is free of viruses or other harmful.");
+    
+            $("#reserveModal").modal("show");
+        })
+    });
+</script>
+
+
+</body>
+
+</html>
